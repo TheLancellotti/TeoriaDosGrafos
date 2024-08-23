@@ -70,7 +70,7 @@ void incluir_vertice(vertice *v, int valor)
 }
 
 void dfs (vertice * vertices, int raiz){
-    printf("%d ", raiz);
+    // printf("%d ", raiz);
     vertices[raiz].visitado = 1;
     if (vertices[raiz].adj == NULL){
         return;
@@ -87,37 +87,35 @@ void dfs (vertice * vertices, int raiz){
 int main()
 {
 
-    int qtd_vertices;
-    int qtd_arestas;
-    int v1, v2;
-    int count = 0;
+    int n;
+    int e;
+    int u, v;
+    int x = 0;
     vertice *vertices;
-    printf("Digite a quantidade de vertices e arestas: ");
-    scanf("%d %d", &qtd_vertices, &qtd_arestas);
+    scanf("%d %d", &n, &e);
 
-    vertices = (vertice *)calloc(sizeof(vertice), qtd_vertices + 1);
-    printf("Digite as arestas (v1 v2):\n");
-    for (int i = 1; i <= qtd_arestas; i++)
+    vertices = (vertice *)calloc(sizeof(vertice), n + 1);
+    for (int i = 1; i <= e; i++)
     {
-        scanf("%d %d", &v1, &v2);
-        incluir_vertice(&vertices[v1], v2);
-        incluir_vertice(&vertices[v2], v1);
+        scanf("%d %d", &u, &v);
+        incluir_vertice(&vertices[u], v);
+        incluir_vertice(&vertices[v], u);
     }
 
-    for (int j = 1; j <= qtd_vertices; j++)
+    /*for (int j = 1; j <= n; j++)
     {
-        printf("Vertice %d: ", j);
         mostrar_lista(vertices[j].adj);
-    }
-    for (int m = 1; m <= qtd_vertices; m++)
+    } */
+
+    for (int m = 1; m <= n; m++)
     {
         if (vertices[m].visitado == 0)
         {
             dfs(vertices, m);
-            count++;
+            x++;
         }
     }
-    printf("count: %d\n", count);
+    printf("%d\n", x);
 
     return 0;
 }
